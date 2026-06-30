@@ -4,10 +4,24 @@
 
 ## 推荐阅读顺序
 
+### 通用入门顺序
+
 1. [environment.md](environment.md)：准备本地学习环境。
 2. [api-key-guide.md](api-key-guide.md)：理解 API Key 安全和环境变量使用方式。
-3. [troubleshooting.md](troubleshooting.md)：遇到依赖、运行、权限、模型调用问题时排查。
-4. [roadmap.md](roadmap.md)：按阶段记录学习进度。
+3. [../lessons/00-ai-foundation/README.md](../lessons/00-ai-foundation/README.md)：先建立 AI、LLM、Agent、RAG、MCP 的整体认知。
+4. [troubleshooting.md](troubleshooting.md)：遇到依赖、运行、权限、模型调用问题时排查。
+5. [roadmap.md](roadmap.md)：按阶段记录学习进度。
+
+### 常见开发中使用 AI 的顺序
+
+如果你是小白，想先把 AI 用到日常开发任务中，推荐按下面顺序阅读：
+
+1. [environment.md](environment.md)：确认本地命令、编辑器和 Python 环境可用。
+2. [api-key-guide.md](api-key-guide.md)：先建立密钥和敏感信息边界，避免把真实 Key 写进仓库。
+3. [roadmap.md#开发实战周日常开发使用-ai](roadmap.md#开发实战周日常开发使用-ai)：按 5 天节奏完成需求澄清、读代码、实现、测试、Review 和排障练习。
+4. [developer-ai-workflows.md](developer-ai-workflows.md)：学习常见开发场景下如何给 AI 上下文、拆任务、检查结果。
+5. [developer-prompt-recipes.md](developer-prompt-recipes.md)：复制常用 Prompt Recipes，完成自己的第一个小需求或 Bug 修复。
+6. [troubleshooting.md](troubleshooting.md)：当 AI 输出不可运行、依赖报错或权限不清晰时回到这里排查。
 
 ## Labs 的学习方式
 
@@ -63,5 +77,7 @@ lessons/<stage>/
 
 ## 和 07、08 阶段的关系
 
+- [developer-ai-workflows.md](developer-ai-workflows.md)：把 07 阶段的 CLI Agent 能力落到需求澄清、读代码、实现、测试、Review、排障等日常开发流程中。
+- [developer-prompt-recipes.md](developer-prompt-recipes.md)：把 Prompt、Tool Use、Claude Code 的常见开发提示词模板整理成可复用清单。
 - `07-claude-code`：重点练习 `CLAUDE.md`、slash command、hooks、settings，把 Agent 工作流工程化。
 - `08-eval-security`：重点练习 golden dataset、评分、日志、报告和安全样例，把 AI 应用质量评测工程化。

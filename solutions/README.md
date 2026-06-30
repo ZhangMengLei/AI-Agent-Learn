@@ -14,6 +14,7 @@
 
 | 阶段 | 主题 | 练习答案 | 练习 Lab | 项目讲解 | 项目 Lab | 可运行实现 |
 | --- | --- | --- | --- | --- | --- | --- |
+| 00-ai-foundation | AI 基础导学 | [练习](./00-ai-foundation/03-exercises.md) | [Lab](./00-ai-foundation/04-exercises-lab.md) | [项目](./00-ai-foundation/05-project.md) | [项目 Lab](./00-ai-foundation/06-project-lab.md) | 无，先按课程设计实现 |
 | 01-prompt | Prompt Engineering | [练习](./01-prompt/03-exercises.md) | [Lab](./01-prompt/04-exercises-lab.md) | [项目](./01-prompt/05-project.md) | [项目 Lab](./01-prompt/06-project-lab.md) | 无，先按课程设计实现 |
 | 02-llm-api | LLM API 与 SDK | [练习](./02-llm-api/03-exercises.md) | [Lab](./02-llm-api/04-exercises-lab.md) | [项目](./02-llm-api/05-project.md) | [项目 Lab](./02-llm-api/06-project-lab.md) | 无，先按课程设计实现 |
 | 03-tool-use | Tool Use / Function Calling | [练习](./03-tool-use/03-exercises.md) | [Lab](./03-tool-use/04-exercises-lab.md) | [项目](./03-tool-use/05-project.md) | [项目 Lab](./03-tool-use/06-project-lab.md) | [implementations/03-tool-assistant/](../implementations/03-tool-assistant/) |

@@ -12,14 +12,15 @@
 
 ## 阶段索引
 
-1. [checkpoint-01-prompt.md](checkpoint-01-prompt.md)：Prompt Engineering。
-2. [checkpoint-02-llm-api.md](checkpoint-02-llm-api.md)：LLM API 与 SDK。
-3. [checkpoint-03-tool-use.md](checkpoint-03-tool-use.md)：Tool Use / Function Calling。
-4. [checkpoint-04-rag.md](checkpoint-04-rag.md)：RAG 知识库问答。
-5. [checkpoint-05-agent.md](checkpoint-05-agent.md)：Agent 架构。
-6. [checkpoint-06-mcp.md](checkpoint-06-mcp.md)：MCP。
-7. [checkpoint-07-claude-code.md](checkpoint-07-claude-code.md)：Claude Code / CLI Agent。
-8. [checkpoint-08-eval-security.md](checkpoint-08-eval-security.md)：Eval / Security。
+1. [checkpoint-00-ai-foundation.md](checkpoint-00-ai-foundation.md)：AI 基础导学。
+2. [checkpoint-01-prompt.md](checkpoint-01-prompt.md)：Prompt Engineering。
+3. [checkpoint-02-llm-api.md](checkpoint-02-llm-api.md)：LLM API 与 SDK。
+4. [checkpoint-03-tool-use.md](checkpoint-03-tool-use.md)：Tool Use / Function Calling。
+5. [checkpoint-04-rag.md](checkpoint-04-rag.md)：RAG 知识库问答。
+6. [checkpoint-05-agent.md](checkpoint-05-agent.md)：Agent 架构。
+7. [checkpoint-06-mcp.md](checkpoint-06-mcp.md)：MCP。
+8. [checkpoint-07-claude-code.md](checkpoint-07-claude-code.md)：Claude Code / CLI Agent。
+9. [checkpoint-08-eval-security.md](checkpoint-08-eval-security.md)：Eval / Security。
 
 ## 推荐通过标准
 

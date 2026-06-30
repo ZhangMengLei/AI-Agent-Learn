@@ -6,6 +6,7 @@
 
 | 阶段 | 主题 | 核心产物 | 状态 |
 | --- | --- | --- | --- |
+| 00 | AI 基础导学 | AI 学习导航卡片和术语地图 | 未开始 |
 | 01 | Prompt | 提示词模板和对比记录 | 未开始 |
 | 02 | LLM API | 最小 API 调用和错误处理 | 未开始 |
 | 03 | Tool Use | 工具调用 schema 和执行记录 | 未开始 |
@@ -14,6 +15,7 @@
 | 06 | MCP | MCP Server/Client 基础实验 | 未开始 |
 | 07 | Claude Code | CLAUDE.md、slash command、hooks、settings | 未开始 |
 | 08 | Eval / Security | golden dataset、评分、日志、报告 | 未开始 |
+| 开发实战周 | 日常开发使用 AI | 需求澄清记录、代码理解笔记、实现计划、测试清单、Review 记录 | 未开始 |
 
 ## 每阶段完成标准
 
@@ -28,49 +30,25 @@
 - [ ] 完成 `06-project-lab/README.md` 中的项目方案或最小实现。
 - [ ] 阅读 `07-review.md` 并自评。
 
-## 进阶主线：从 Mock 到真实 API，再到可评测系统
+## 开发实战周：日常开发使用 AI
 
-完成基础 8 个阶段后，建议按下面路线补强工程能力：
+这条路径面向想先把 AI 用到真实开发场景的小白。建议先阅读 [labs/README.md](README.md) 中的推荐阅读顺序，再结合 [developer-ai-workflows.md](developer-ai-workflows.md) 和 [developer-prompt-recipes.md](developer-prompt-recipes.md) 完成下面 5 天练习。
 
-1. LLM API 替换路径：保留 mock provider，抽象真实 provider，使用 env 控制 provider / model / timeout / retry。
-2. RAG 进阶：从关键词检索升级到 embedding、vector store、hybrid search、rerank 和 retrieval eval。
-3. Agent 进阶：把 state 持久化，支持 checkpoint / resume / failure recovery，输出可观测 trace 日志。
-4. Eval / Security 进阶：建立 rubric、regression set、安全样例和趋势报告。
+| 天数 | 主题 | 练习任务 | 产物 |
+| --- | --- | --- | --- |
+| Day 1 | 需求澄清与任务拆解 | 选择一个小需求，让 AI 帮你列出目标、非目标、输入输出、验收标准和风险点 | 需求澄清记录 |
+| Day 2 | 代码理解与上下文整理 | 选 1-3 个相关文件，让 AI 总结模块职责、调用链、待修改位置和不确定点 | 代码理解笔记 |
+| Day 3 | 实现计划与小步修改 | 让 AI 先给实现计划和回滚方案，再按最小改动完成一个小功能或 Bug 修复 | 实现计划与变更说明 |
+| Day 4 | 测试、排障与自查 | 让 AI 补充测试清单、解释失败原因、给出排障路径，但由你确认命令和结果 | 测试清单与排障记录 |
+| Day 5 | Code Review 与复盘 | 让 AI 从可读性、边界条件、安全、可维护性角度 Review 变更，并整理复盘 | Review 记录与下周改进项 |
 
-这条主线的目标是：每个 demo 都能回答“如何安全切换真实 API”“如何排障”“如何评测是否变好或变坏”。
+完成标准：
 
-## 02 LLM API 进阶进度
-
-| 任务 | 完成情况 | 备注 |
-| --- | --- | --- |
-| 保留 mock provider | 未完成 | 默认不访问真实 API |
-| 设计 provider 抽象 | 未完成 | generate / stream 统一接口 |
-| 设计 env 配置 | 未完成 | provider、model、key env、timeout、retry |
-| 实现 streaming partial output 处理 | 未完成 | 中途失败不能当成功 |
-| 实现错误分类 | 未完成 | missing_key、auth、rate_limit、timeout 等 |
-| 完成真实 API smoke test | 未完成 | 只在本机显式开启，不提交密钥 |
-
-## 04 RAG 进阶进度
-
-| 任务 | 完成情况 | 备注 |
-| --- | --- | --- |
-| chunk metadata 完整 | 未完成 | source、section、line、hash |
-| embedding 封装 | 未完成 | mock 可替换真实 embedding |
-| vector store 可重建 | 未完成 | 删除后可完整重建 |
-| hybrid search | 未完成 | 关键词 + 向量 |
-| rerank | 未完成 | Top 20 到 Top 3-5 |
-| retrieval eval | 未完成 | expected_sources、Top K 命中率、拒答率 |
-
-## 05 Agent 进阶进度
-
-| 任务 | 完成情况 | 备注 |
-| --- | --- | --- |
-| state schema | 未完成 | goal、plan、step、observations、logs |
-| checkpoint 持久化 | 未完成 | 每轮迭代后保存 |
-| resume 恢复 | 未完成 | 不重复已成功高风险动作 |
-| failure recovery | 未完成 | retry / skip / stop / human confirm |
-| trace 日志 | 未完成 | run_id、trace_id、phase、decision |
-| 报告引用观察结果 | 未完成 | 结论可回溯 |
+- [ ] 能说清楚每次请求 AI 前提供了哪些上下文。
+- [ ] 能区分 AI 的建议、你自己确认的事实和最终采用的改动。
+- [ ] 每个改动都有最小验收方式，例如运行测试、检查链接、查看 diff。
+- [ ] 没有把真实 API Key、生产数据、cookie、token 或隐私信息发给 AI 或写进仓库。
+- [ ] 遇到不确定输出时，能回到 [troubleshooting.md](troubleshooting.md) 或源码自行验证。
 
 ## 07 Claude Code 进度
 
@@ -87,14 +65,12 @@
 
 | 任务 | 完成情况 | 备注 |
 | --- | --- | --- |
-| 设计 golden dataset | 未完成 | 正常、边界、幻觉、安全样例 |
-| 编写评分 rubric | 未完成 | 0-5 分、通过线、rubric 版本 |
-| 建立 regression set | 未完成 | prompt / 模型 / RAG / Agent 变更后复跑 |
-| 维护 safety set | 未完成 | prompt injection、密钥泄露、越权工具 |
-| 记录 run result | 未完成 | score、passed、safety_pass、hallucination |
-| 设计脱敏日志 | 未完成 | 不记录 key、cookie、完整隐私输入 |
-| 生成 Markdown 报告 | 未完成 | 平均分、通过率、安全通过率、失败用例 |
-| 完成安全检查清单 | 未完成 | 高风险失败单独列出 |
+| 设计 golden dataset | 未完成 |  |
+| 编写评分 rubric | 未完成 |  |
+| 记录 run result | 未完成 |  |
+| 设计脱敏日志 | 未完成 |  |
+| 生成 Markdown 报告 | 未完成 |  |
+| 完成安全检查清单 | 未完成 |  |
 | 完成阶段复盘 | 未完成 |  |
 
 ## 每周复盘问题
