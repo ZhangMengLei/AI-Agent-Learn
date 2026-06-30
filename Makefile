@@ -1,20 +1,27 @@
-.PHONY: help install list demo lint test clean
+.PHONY: help install list demo demo-tool demo-rag demo-agent demo-eval lint test check clean
 
-PYTHON ?= python
+PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 STAGE ?= 01-prompt
 LAB ?= 04-exercises-lab
+QUERY ?= Agent 和 Chatbot 区别是什么
 LESSON_DIR := lessons/$(STAGE)/$(LAB)
 
 help:
 	@printf '%s\n' 'AI-Agent-Learn 常用命令'
 	@printf '%s\n' ''
 	@printf '%s\n' 'make install                         安装 Python 依赖'
-	@printf '%s\n' 'make list                            查看课程、数据和自查清单'
+	@printf '%s\n' 'make list                            查看课程、数据、自查清单和可运行实现'
 	@printf '%s\n' 'make demo STAGE=01-prompt LAB=04-exercises-lab'
-	@printf '%s\n' '                                     检查并运行某个 demo 目录'
+	@printf '%s\n' '                                     检查并运行某个 lesson demo 目录'
+	@printf '%s\n' 'make demo-tool                       运行 Tool Use 教学 Demo'
+	@printf '%s\n' 'make demo-rag QUERY="Agent 和 Chatbot 区别是什么"'
+	@printf '%s\n' '                                     运行本地 Markdown RAG Demo'
+	@printf '%s\n' 'make demo-agent                      运行研究 Agent Demo（会覆盖报告文件）'
+	@printf '%s\n' 'make demo-eval                       运行 Eval Lab Demo（会覆盖报告文件）'
 	@printf '%s\n' 'make lint                            编译检查 Python 文件'
 	@printf '%s\n' 'make test                            运行 unittest 测试'
+	@printf '%s\n' 'make check                           运行 lint 和 test'
 	@printf '%s\n' 'make clean                           清理缓存和输出目录'
 
 install:
@@ -23,6 +30,12 @@ install:
 list:
 	@printf '%s\n' '课程阶段：'
 	@find lessons -maxdepth 2 -name README.md | sort
+	@printf '%s\n' ''
+	@printf '%s\n' '可运行实现：'
+	@find implementations -maxdepth 2 -name README.md | sort 2>/dev/null || true
+	@printf '%s\n' ''
+	@printf '%s\n' '答案讲解：'
+	@find solutions -maxdepth 2 -name README.md | sort 2>/dev/null || true
 	@printf '%s\n' ''
 	@printf '%s\n' '样例数据：'
 	@find data -type f | sort 2>/dev/null || true
@@ -46,6 +59,18 @@ demo:
 		printf '%s\n' '未发现 main.py、app.py 或 README.md，请检查该阶段是否已补充 demo。'; \
 	fi
 
+demo-tool:
+	$(PYTHON) implementations/03-tool-assistant/main.py "计算 1 + 2 * 3"
+
+demo-rag:
+	$(PYTHON) implementations/04-rag-assistant/main.py "$(QUERY)"
+
+demo-agent:
+	$(PYTHON) implementations/05-research-agent/research_agent.py
+
+demo-eval:
+	$(PYTHON) implementations/08-eval-lab/eval_lab.py
+
 lint:
 	@if find implementations tests -name '*.py' -print -quit 2>/dev/null | grep -q .; then \
 		$(PYTHON) -m compileall -q implementations tests; \
@@ -59,6 +84,8 @@ test:
 	else \
 		printf '%s\n' '未发现 tests 目录，跳过 unittest。'; \
 	fi
+
+check: lint test
 
 clean:
 	@find . -type d \( -name '__pycache__' -o -name '.pytest_cache' -o -name '.ruff_cache' -o -name '.mypy_cache' \) -prune -exec rm -rf {} +

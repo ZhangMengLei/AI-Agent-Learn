@@ -107,36 +107,51 @@ cp .env.example .env
 
 ## 如何运行 demos
 
-当前仓库以课程文档和最小工程骨架为主，不强制绑定某一家模型服务。推荐运行方式：
+当前仓库不强制绑定某一家模型服务。可运行实现默认使用 Python 标准库和 mock 数据，适合先理解工程结构，再逐步替换为真实模型服务。
+
+先查看可用命令：
 
 ```bash
 make help
 make install
 make list
+make check
 ```
 
-常见 Demo 运行约定：
+### 当前可运行实现
 
-```bash
-# 进入某个阶段的练习或项目目录
-cd lessons/01-prompt/04-exercises-lab
+| 阶段 | 实现目录 | 运行命令 | 学习重点 |
+| --- | --- | --- | --- |
+| 03 Tool Use | [implementations/03-tool-assistant](implementations/03-tool-assistant/) | `make demo-tool` | 工具注册、参数校验、权限确认、tool log |
+| 04 RAG | [implementations/04-rag-assistant](implementations/04-rag-assistant/) | `make demo-rag QUERY="Agent 和 Chatbot 区别是什么"` | Markdown 加载、chunk、检索、引用 |
+| 05 Agent | [implementations/05-research-agent](implementations/05-research-agent/) | `make demo-agent` | 计划、工具调用、观察、报告生成 |
+| 08 Eval / Security | [implementations/08-eval-lab](implementations/08-eval-lab/) | `make demo-eval` | golden dataset、规则评分、安全样例、报告 |
 
-# 如果目录中提供 Python 脚本，可按脚本名运行
-python main.py
-```
+说明：
 
-也可以使用 Makefile 中的通用入口：
+- `lessons/` 是主课程路径，包含讲解、模板、练习、项目和复盘。
+- `implementations/` 是可运行参考工程，帮助你把概念跑起来。
+- `solutions/` 是做完练习后的答案讲解，不建议一开始就看。
+- `make demo-agent` 和 `make demo-eval` 会生成或覆盖本地报告文件。
+- 使用真实模型服务前，请先配置 `.env`，并确认 `.gitignore` 已忽略 `.env`。
+
+也可以使用 Makefile 中的通用 lesson 入口：
 
 ```bash
 make demo STAGE=01-prompt LAB=04-exercises-lab
 make demo STAGE=04-rag LAB=06-project-lab
 ```
 
-说明：
+如果目标 lesson 目录还只是课程说明，请按对应 `README.md` 完成练习。对于 RAG 练习，可优先使用 [data/docs/](data/docs/) 和 [data/eval/golden.jsonl](data/eval/golden.jsonl) 作为样例输入。
 
-- `make demo` 会检查目标目录并提示可运行文件；如果目录还只是课程说明，则请按对应 `README.md` 完成练习。
-- 使用真实模型服务前，请先配置 `.env`，并确认 `.gitignore` 已忽略 `.env`。
-- 对于 RAG 练习，可优先使用 [data/docs/](data/docs/) 和 [data/eval/golden.jsonl](data/eval/golden.jsonl) 作为样例输入。
+## 答案与讲解
+
+完成练习后可以查看 [solutions/README.md](solutions/README.md)。答案目录按课程阶段组织，覆盖：
+
+- `03-exercises.md`：每个练习的参考答案、原因和常见错误。
+- `04-exercises-lab.md`：练习工程参考流程和验收标准。
+- `05-project.md`：项目设计讲解和评分标准。
+- `06-project-lab.md`：项目实现路线、测试方式和扩展方向。
 
 ## 目录结构
 
@@ -160,8 +175,10 @@ data/
   docs/                      RAG 与知识库样例文档
   notes/                     结构化学习笔记样例
   eval/                      评测黄金集样例
+implementations/             Tool Use、RAG、Agent、Eval 可运行参考实现
+tests/                       unittest 自动化测试
 checkpoints/                 每阶段自查问题
-solutions/                   参考答案索引和使用说明
+solutions/                   参考答案、讲解和项目复盘
 ```
 
 ## 阶段学习入口

@@ -1,0 +1,44 @@
+# Tool Use / Function Calling 项目参考讲解
+
+对应项目：[lessons/03-tool-use/05-project.md](../../lessons/03-tool-use/05-project.md)
+
+## 项目主题
+
+工具调用助手
+
+可对照实现：[implementations/03-tool-assistant/](../../implementations/03-tool-assistant/)
+
+## 推荐架构
+
+- ToolRegistry
+- ToolSpec
+- ToolCall
+- ToolResult
+- permission gate
+- tool log
+
+## 设计理由
+
+这个项目应该优先保证教学清晰度：输入、处理过程、输出、验证方式都要能被初学者看懂。不要为了“像生产系统”而提前加入复杂框架。
+
+## 验收标准
+
+| 维度 | 通过标准 |
+| --- | --- |
+| 功能 | 能完成项目说明中的核心任务。 |
+| 可解释 | 能说明每个模块的职责。 |
+| 安全 | 不写入真实密钥，不自动执行高风险动作。 |
+| 测试 | 有样例输入和可复现输出。 |
+| 质量 | 模型选择工具和程序执行工具必须解耦。 |
+
+## 常见错误
+
+- 一开始就追求完整平台，忽略最小闭环。
+- 没有区分教学 demo 和生产实现。
+- 没有记录失败条件和边界。
+
+## 可选扩展
+
+- 增加配置文件，让样例输入可切换。
+- 增加测试数据和运行报告。
+- 把项目复盘写入 `07-review.md` 对应问题。
