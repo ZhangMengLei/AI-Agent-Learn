@@ -1,0 +1,67 @@
+# Labs 学习支持文档
+
+`labs/` 用来承载本课程所有教学实验的通用说明。每个阶段的 `03-exercises-lab` 和 `04-project-lab` 会给出具体任务，本目录提供跨阶段都适用的环境、安全和排障指南。
+
+## 推荐阅读顺序
+
+1. [environment.md](environment.md)：准备本地学习环境。
+2. [api-key-guide.md](api-key-guide.md)：理解 API Key 安全和环境变量使用方式。
+3. [troubleshooting.md](troubleshooting.md)：遇到依赖、运行、权限、模型调用问题时排查。
+4. [roadmap.md](roadmap.md)：按阶段记录学习进度。
+
+## Labs 的学习方式
+
+建议每个阶段都按下面节奏完成：
+
+1. **先读理论**：阅读阶段 `01-basic.md` 和 `02-templates.md`。
+2. **完成练习**：阅读 `03-exercises.md`，再到 `03-exercises-lab/` 完成工程化练习。
+3. **完成项目**：阅读 `04-project.md`，再到 `04-project-lab/` 设计或实现小项目。
+4. **阶段复盘**：阅读 `05-review.md`，用检查清单自评。
+5. **记录问题**：把卡住的问题写在自己的学习笔记里，下一次优先解决。
+
+## 通用目录约定
+
+每个阶段推荐包含：
+
+```text
+lessons/<stage>/
+  README.md
+  01-basic.md
+  02-templates.md
+  03-exercises.md
+  03-exercises-lab/
+    README.md
+  04-project.md
+  04-project-lab/
+    README.md
+  05-review.md
+```
+
+说明：
+
+- `03-exercises-lab/`：偏小练习，目标是理解一个技能点。
+- `04-project-lab/`：偏综合项目，目标是把多个技能组合起来。
+- `05-review.md`：阶段复盘、常见错误和检查清单。
+
+## 学习原则
+
+- 不要在仓库中写入真实 API Key、密码、cookie、token。
+- 不要把生产数据复制到学习实验中。
+- 不要在不理解命令含义时执行删除、推送、覆盖等高风险操作。
+- 先用 mock 数据跑通流程，再接入真实模型。
+- 先追求可解释、可复盘，再追求自动化。
+
+## 适合初学者的完成标准
+
+一个 lab 不需要一次做到完美，只要满足：
+
+- 能说明它解决什么问题。
+- 有清晰输入和输出。
+- 有最小可运行或可演示流程。
+- 有基本安全边界。
+- 有复盘记录和下一步改进方向。
+
+## 和 07、08 阶段的关系
+
+- `07-claude-code`：重点练习 `CLAUDE.md`、slash command、hooks、settings，把 Agent 工作流工程化。
+- `08-eval-security`：重点练习 golden dataset、评分、日志、报告和安全样例，把 AI 应用质量评测工程化。

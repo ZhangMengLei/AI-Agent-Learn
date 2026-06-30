@@ -38,8 +38,12 @@ Eval / Security / Deployment
 ## 目录结构
 
 ```text
-docs/
-  01-prompt/           Prompt 基础与进阶
+lessons/
+  01-prompt/
+    README.md          阶段说明
+    01-basic.md        讲解：基础概念
+    02-templates.md    模板：可复用 Prompt
+    03-exercises.md    练习：动手任务
   02-llm-api/          LLM API 与 SDK
   03-tool-use/         工具调用与 Function Calling
   04-rag/              RAG 知识库问答
@@ -47,26 +51,30 @@ docs/
   06-mcp/              MCP 协议与 Server 开发
   07-claude-code/      Claude Code、CLI、Skill、Hook
   08-eval-security/    评测、监控与安全
-examples/
-  01-prompt/           Prompt 示例
-  02-llm-api/          API 调用示例
-  03-tool-use/         工具调用示例
-  04-rag/              RAG 示例
-  05-agent/            Agent 示例
-  06-mcp/              MCP 示例
-  07-claude-code/      Claude Code 工作流示例
+```
+
+## 每个阶段的组织方式
+
+后续每个阶段都尽量按这个结构整理：
+
+```text
+README.md              阶段目标和学习路径
+01-basic.md            讲解：核心概念
+02-templates.md        模板：可复用写法或配置
+03-exercises.md        练习：动手任务
+04-project.md          项目：小实战
 ```
 
 ## 阶段学习入口
 
-1. [Prompt Engineering](docs/01-prompt/README.md)
-2. [LLM API 与 SDK](docs/02-llm-api/README.md)
-3. [Tool Use / Function Calling](docs/03-tool-use/README.md)
-4. [RAG 知识库问答](docs/04-rag/README.md)
-5. [Agent 架构](docs/05-agent/README.md)
-6. [MCP](docs/06-mcp/README.md)
-7. [Claude Code / CLI / Skill](docs/07-claude-code/README.md)
-8. [Eval / Security](docs/08-eval-security/README.md)
+1. [Prompt Engineering](lessons/01-prompt/README.md)
+2. [LLM API 与 SDK](lessons/02-llm-api/README.md)
+3. [Tool Use / Function Calling](lessons/03-tool-use/README.md)
+4. [RAG 知识库问答](lessons/04-rag/README.md)
+5. [Agent 架构](lessons/05-agent/README.md)
+6. [MCP](lessons/06-mcp/README.md)
+7. [Claude Code / CLI / Skill](lessons/07-claude-code/README.md)
+8. [Eval / Security](lessons/08-eval-security/README.md)
 
 ## 建议实战项目
 
