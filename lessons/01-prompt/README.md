@@ -9,10 +9,10 @@
 - [Prompt 基础](01-basic.md)
 - [Prompt 模板示例](02-templates.md)
 - [Prompt 练习](03-exercises.md)
-- [Prompt 练习工程](03-exercises-lab/README.md)
-- [Prompt 实战项目](04-project.md)
-- [Prompt 项目工程](04-project-lab/README.md)
-- [Prompt 阶段复盘](05-review.md)
+- [Prompt 练习工程](04-exercises-lab/README.md)
+- [Prompt 实战项目](05-project.md)
+- [Prompt 项目工程](06-project-lab/README.md)
+- [Prompt 阶段复盘](07-review.md)
 
 ## 核心概念
 

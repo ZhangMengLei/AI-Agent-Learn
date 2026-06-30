@@ -9,10 +9,10 @@
 - [基础讲解](01-basic.md)
 - [常用模板](02-templates.md)
 - [练习任务](03-exercises.md)
-- [练习工程](03-exercises-lab/README.md)
-- [实战项目](04-project.md)
-- [项目工程](04-project-lab/README.md)
-- [阶段复盘](05-review.md)
+- [练习工程](04-exercises-lab/README.md)
+- [实战项目](05-project.md)
+- [项目工程](06-project-lab/README.md)
+- [阶段复盘](07-review.md)
 
 ## 核心概念
 

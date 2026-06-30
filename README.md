@@ -40,29 +40,42 @@ Eval / Security / Deployment
 ```text
 lessons/
   01-prompt/
-    README.md          阶段说明
-    01-basic.md        讲解：基础概念
-    02-templates.md    模板：可复用 Prompt
-    03-exercises.md    练习：动手任务
-  02-llm-api/          LLM API 与 SDK
-  03-tool-use/         工具调用与 Function Calling
-  04-rag/              RAG 知识库问答
-  05-agent/            Agent 架构与任务循环
-  06-mcp/              MCP 协议与 Server 开发
-  07-claude-code/      Claude Code、CLI、Skill、Hook
-  08-eval-security/    评测、监控与安全
+    README.md              阶段说明和学习入口
+    01-basic.md            讲解：核心概念
+    02-templates.md        模板：可复用写法
+    03-exercises.md        练习：题目和思考任务
+    04-exercises-lab/      练习工程：输入、任务、参考答案
+    05-project.md          项目：实战说明
+    06-project-lab/        项目工程：可运行实现方案
+    07-review.md           复盘：常见错误和检查清单
+  02-llm-api/
+  03-tool-use/
+  04-rag/
+  05-agent/
+  06-mcp/
+  07-claude-code/
+  08-eval-security/
+labs/
+  README.md                全局实验说明
+  environment.md           环境准备
+  api-key-guide.md         API Key 安全配置
+  troubleshooting.md       常见问题排查
+  roadmap.md               学习进度表
 ```
 
 ## 每个阶段的组织方式
 
-后续每个阶段都尽量按这个结构整理：
+每个阶段都按同一套结构整理：
 
 ```text
-README.md              阶段目标和学习路径
-01-basic.md            讲解：核心概念
-02-templates.md        模板：可复用写法或配置
-03-exercises.md        练习：动手任务
-04-project.md          项目：小实战
+README.md                  阶段目标和学习路径
+01-basic.md                讲解：核心概念
+02-templates.md            模板：可复用写法或配置
+03-exercises.md            练习：动手题目
+04-exercises-lab/          练习工程：更接近真实任务的小实验
+05-project.md              项目：小实战说明
+06-project-lab/            项目工程：可运行实现方案
+07-review.md               复盘：常见错误、检查清单、下一步
 ```
 
 ## 阶段学习入口
