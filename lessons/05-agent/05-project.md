@@ -21,6 +21,9 @@
 - 支持资料来源引用
 - 支持用户中途确认计划
 - 支持结果质量评估
+- 支持 state checkpoint，程序中断后可恢复
+- 支持工具失败重试、跳过或安全停止
+- 支持可观测日志，串联 plan、action、observation、reflection
 
 ## 推荐目录
 
@@ -57,6 +60,59 @@ Evaluator 判断是否足够
 生成最终报告
 ```
 
+## 状态、恢复与观测
+
+### State schema
+
+建议每次运行保存一个 `runs/<run_id>/state.json`：
+
+```json
+{
+  "run_id": "research-001",
+  "goal": "研究 MCP 是什么",
+  "plan": [],
+  "current_step": 0,
+  "observations": [],
+  "tool_logs": [],
+  "decisions": [],
+  "retry_count": {},
+  "finished": false,
+  "stop_reason": null
+}
+```
+
+每轮迭代结束后写 checkpoint，确保程序中断后可以 resume。
+
+### 失败恢复
+
+必须定义每类失败怎么处理：
+
+- 工具超时：有限重试，超过后记录失败并进入 reflection。
+- 工具参数错误：不重试，要求 planner 修正下一步。
+- 检索无结果：改写 query 或标记资料不足。
+- 模型输出格式错误：要求重新生成结构化输出，超过次数后安全停止。
+- 达到最大迭代次数：输出当前进展、已完成步骤和未完成事项。
+
+### 观测日志
+
+每一步写一条 JSONL 日志，字段建议包含：
+
+```json
+{
+  "run_id": "research-001",
+  "trace_id": "iter-003",
+  "phase": "observe",
+  "tool_name": "reader",
+  "ok": true,
+  "duration_ms": 240,
+  "input_preview": "source=doc-001",
+  "output_preview": "读取到 MCP 定义与使用场景",
+  "next_decision": "继续汇总核心概念"
+}
+```
+
+最终报告应能回溯每个关键结论来自哪些观察结果。
+
 ## 报告格式
 
 ```text
@@ -82,6 +138,10 @@ Evaluator 判断是否足够
 - 能记录每一步执行过程。
 - 能在达到最大迭代次数后停止。
 - 最终报告结构清晰，并带来源。
+- 每轮迭代后能保存 state checkpoint。
+- 从中断状态恢复时不会重复执行已成功的高风险动作。
+- 工具失败有明确 retry / skip / stop 策略。
+- 日志能按 run_id 和 trace_id 追踪完整执行链路。
 
 ## 扩展方向
 

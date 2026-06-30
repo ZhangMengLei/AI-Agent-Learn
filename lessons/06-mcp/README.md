@@ -13,11 +13,7 @@
 - [实战项目](05-project.md)
 - [项目工程](06-project-lab/README.md)
 - [阶段复盘](07-review.md)
-
-## 可运行参考实现
-
-- [Mini MCP Server Demo](../../implementations/06-mcp-server/)：用标准库模拟 MCP / JSON-RPC server、tools、resources 和 prompts。
-- 运行命令：`make demo-mcp`
+- [MCP Server Lab：课程知识库最小实现指南](mcp-server-lab/README.md)
 
 ## 核心概念
 
@@ -28,16 +24,21 @@
 - Prompts
 - Sampling
 - JSON-RPC
+- stdio / SSE
+- Schema
+- 错误处理
+- 调试
 - 权限与边界
 
 ## 学习任务
 
-1. 理解 MCP Client 和 MCP Server 的关系。
+1. 理解 MCP Client 和 MCP Server 的关系与生命周期。
 2. 区分 Tools、Resources、Prompts。
-3. 阅读一个 MCP Server 配置。
-4. 设计一个自定义 MCP Tool。
-5. 实现一个最小 MCP Server。
+3. 理解 JSON-RPC、stdio 和 SSE 的基本概念。
+4. 阅读 Claude Desktop / Claude Code 的 MCP Server 配置。
+5. 设计一个有 schema、错误处理和权限边界的自定义 MCP Tool。
+6. 实现一个课程知识库 MCP Server。
 
 ## 实战项目
 
-做一个自定义 MCP Server。
+做一个课程知识库 MCP Server。

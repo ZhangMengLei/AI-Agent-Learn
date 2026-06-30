@@ -28,6 +28,50 @@
 - [ ] 完成 `06-project-lab/README.md` 中的项目方案或最小实现。
 - [ ] 阅读 `07-review.md` 并自评。
 
+## 进阶主线：从 Mock 到真实 API，再到可评测系统
+
+完成基础 8 个阶段后，建议按下面路线补强工程能力：
+
+1. LLM API 替换路径：保留 mock provider，抽象真实 provider，使用 env 控制 provider / model / timeout / retry。
+2. RAG 进阶：从关键词检索升级到 embedding、vector store、hybrid search、rerank 和 retrieval eval。
+3. Agent 进阶：把 state 持久化，支持 checkpoint / resume / failure recovery，输出可观测 trace 日志。
+4. Eval / Security 进阶：建立 rubric、regression set、安全样例和趋势报告。
+
+这条主线的目标是：每个 demo 都能回答“如何安全切换真实 API”“如何排障”“如何评测是否变好或变坏”。
+
+## 02 LLM API 进阶进度
+
+| 任务 | 完成情况 | 备注 |
+| --- | --- | --- |
+| 保留 mock provider | 未完成 | 默认不访问真实 API |
+| 设计 provider 抽象 | 未完成 | generate / stream 统一接口 |
+| 设计 env 配置 | 未完成 | provider、model、key env、timeout、retry |
+| 实现 streaming partial output 处理 | 未完成 | 中途失败不能当成功 |
+| 实现错误分类 | 未完成 | missing_key、auth、rate_limit、timeout 等 |
+| 完成真实 API smoke test | 未完成 | 只在本机显式开启，不提交密钥 |
+
+## 04 RAG 进阶进度
+
+| 任务 | 完成情况 | 备注 |
+| --- | --- | --- |
+| chunk metadata 完整 | 未完成 | source、section、line、hash |
+| embedding 封装 | 未完成 | mock 可替换真实 embedding |
+| vector store 可重建 | 未完成 | 删除后可完整重建 |
+| hybrid search | 未完成 | 关键词 + 向量 |
+| rerank | 未完成 | Top 20 到 Top 3-5 |
+| retrieval eval | 未完成 | expected_sources、Top K 命中率、拒答率 |
+
+## 05 Agent 进阶进度
+
+| 任务 | 完成情况 | 备注 |
+| --- | --- | --- |
+| state schema | 未完成 | goal、plan、step、observations、logs |
+| checkpoint 持久化 | 未完成 | 每轮迭代后保存 |
+| resume 恢复 | 未完成 | 不重复已成功高风险动作 |
+| failure recovery | 未完成 | retry / skip / stop / human confirm |
+| trace 日志 | 未完成 | run_id、trace_id、phase、decision |
+| 报告引用观察结果 | 未完成 | 结论可回溯 |
+
 ## 07 Claude Code 进度
 
 | 任务 | 完成情况 | 备注 |
@@ -43,12 +87,14 @@
 
 | 任务 | 完成情况 | 备注 |
 | --- | --- | --- |
-| 设计 golden dataset | 未完成 |  |
-| 编写评分 rubric | 未完成 |  |
-| 记录 run result | 未完成 |  |
-| 设计脱敏日志 | 未完成 |  |
-| 生成 Markdown 报告 | 未完成 |  |
-| 完成安全检查清单 | 未完成 |  |
+| 设计 golden dataset | 未完成 | 正常、边界、幻觉、安全样例 |
+| 编写评分 rubric | 未完成 | 0-5 分、通过线、rubric 版本 |
+| 建立 regression set | 未完成 | prompt / 模型 / RAG / Agent 变更后复跑 |
+| 维护 safety set | 未完成 | prompt injection、密钥泄露、越权工具 |
+| 记录 run result | 未完成 | score、passed、safety_pass、hallucination |
+| 设计脱敏日志 | 未完成 | 不记录 key、cookie、完整隐私输入 |
+| 生成 Markdown 报告 | 未完成 | 平均分、通过率、安全通过率、失败用例 |
+| 完成安全检查清单 | 未完成 | 高风险失败单独列出 |
 | 完成阶段复盘 | 未完成 |  |
 
 ## 每周复盘问题

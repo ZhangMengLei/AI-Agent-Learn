@@ -77,6 +77,66 @@ Prompt Caching 用于缓存重复的大段上下文，减少延迟和成本。
 - 长文档上下文
 - 多轮任务中的稳定前缀
 
+## Mock 到真实 API 的安全切换
+
+学习阶段推荐先使用 mock provider。mock 的价值不是“假装调用成功”，而是让你在不消耗费用、不暴露密钥的情况下，先把交互循环、messages 组装、streaming、日志和错误处理跑通。
+
+### Provider 抽象
+
+不要把 SDK 调用散落在业务代码里。建议只让业务层依赖统一接口：
+
+```text
+generate(messages, options) -> { text, usage, raw }
+stream(messages, options) -> 逐步返回 delta 文本，结束后返回 usage
+```
+
+这样后续从 mock 切到真实 API 时，只替换 provider 实现，不需要重写命令行交互、历史管理或日志模块。
+
+### Env 与配置设计
+
+推荐把“环境”“provider”“密钥变量名”分开：
+
+```text
+APP_ENV=dev
+LLM_PROVIDER=mock
+LLM_API_KEY_ENV=ANTHROPIC_API_KEY
+LLM_MODEL=model-name
+LLM_TIMEOUT_MS=30000
+LLM_MAX_RETRIES=2
+```
+
+规则：
+
+- `dev` 默认使用 mock，除非学习者显式切换。
+- `test` 必须使用 mock 或录制的 fixture，避免 CI 调真实 API。
+- `prod` 必须检查 API Key、预算、日志脱敏和限流策略。
+- 配置文件只写环境变量名和占位符，不写真实密钥。
+
+### Streaming 处理
+
+真实 streaming 不是一次返回完整文本，而是多个片段陆续到达。实现时要注意：
+
+- 收到 delta 后立即打印，改善体感延迟。
+- 同时把 delta 追加到 buffer，请求结束后保存完整 assistant message。
+- 如果流中途失败，日志要记录 partial output，并提示用户“回答可能不完整”。
+- 不要在每个 delta 都写一次完整历史，避免频繁 IO。
+
+### 错误分类与恢复
+
+至少区分这些错误：
+
+| 错误类型 | 常见原因 | 建议处理 |
+| --- | --- | --- |
+| `missing_key` | 未设置环境变量 | 给出设置指引，不重试 |
+| `auth_error` | Key 无效或权限不足 | 停止调用，提示检查 Key |
+| `rate_limit` | 请求过快或额度不足 | 指数退避，达到上限后失败 |
+| `timeout` | 网络慢或模型响应慢 | 可重试，记录耗时 |
+| `server_error` | 服务商临时异常 | 可重试，必要时降级 |
+| `bad_request` | 参数、messages 或模型名错误 | 不重试，提示修正配置 |
+| `empty_output` | 返回为空或被截断 | 记录原始状态，提示重试 |
+
+真实 API 替换的最低验收：mock 路径仍可运行；真实路径不会打印或提交 API Key；失败时能给出可理解错误，而不是直接崩溃。
+
 ## 常见错误
 
 - API Key 无效

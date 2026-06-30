@@ -37,6 +37,35 @@ if not api_key:
 api_key = ...  # 不要把真实密钥硬编码在代码里
 ```
 
+## Mock 到真实 API 的安全切换
+
+教学项目推荐默认使用 mock provider，只有在本机显式配置后才调用真实 API。
+
+推荐配置：
+
+```text
+APP_ENV=dev
+LLM_PROVIDER=mock
+LLM_API_KEY_ENV=ANTHROPIC_API_KEY
+LLM_MODEL=model-name
+LLM_TIMEOUT_MS=30000
+LLM_MAX_RETRIES=2
+```
+
+切换规则：
+
+- `LLM_PROVIDER=mock`：不读取真实 Key，不访问网络，适合练习、测试和 CI。
+- `LLM_PROVIDER=real`：只从 `LLM_API_KEY_ENV` 指向的环境变量读取真实 Key。
+- `APP_ENV=test`：禁止真实网络调用，避免自动化测试消耗额度。
+- `APP_ENV=prod`：必须确认预算、限流、日志脱敏和错误告警。
+
+上线或演示前检查：
+
+1. 配置示例中只有变量名，没有真实值。
+2. 日志不包含请求头、Key、cookie 或完整隐私输入。
+3. 鉴权失败、限流、超时、服务端错误有清晰提示。
+4. 可以一键切回 mock，避免真实 API 异常影响教学流程。
+
 ## .env 文件注意事项
 
 如果你使用 `.env`：
@@ -48,9 +77,16 @@ api_key = ...  # 不要把真实密钥硬编码在代码里
 示例 `.env.example`：
 
 ```text
-ANTHROPIC_API_KEY=replace_with_your_key
+APP_ENV=dev
+LLM_PROVIDER=mock
+LLM_API_KEY_ENV=ANTHROPIC_API_KEY
+ANTHROPIC_API_KEY=replace_with_your_key_for_local_only
 MODEL_NAME=replace_with_model_name
+LLM_TIMEOUT_MS=30000
+LLM_MAX_RETRIES=2
 ```
+
+注意：`.env.example` 中的 `replace_with_your_key_for_local_only` 是占位符，不是真实密钥。真实 `.env` 必须留在本机并加入 `.gitignore`。
 
 ## 在教学材料中如何写
 
@@ -64,7 +100,11 @@ MODEL_NAME=replace_with_model_name
 
 ```json
 {
-  "api_key_env": "ANTHROPIC_API_KEY"
+  "provider": "mock",
+  "api_key_env": "ANTHROPIC_API_KEY",
+  "model": "model-name",
+  "timeout_ms": 30000,
+  "max_retries": 2
 }
 ```
 
@@ -132,3 +172,6 @@ request failed, credential_redacted=true, input=用户完整隐私数据
 - [ ] 示例配置使用 `*_ENV` 或占位符。
 - [ ] 使用 mock 数据时没有混入生产数据。
 - [ ] 高风险操作需要人工确认。
+- [ ] 默认 provider 是 mock，真实调用需要显式开启。
+- [ ] CI / test 环境不会访问真实模型 API。
+- [ ] 错误日志只记录 error_type、request_id、latency，不记录完整请求头。

@@ -73,7 +73,7 @@ JavaScript 版本可以参考：
 | `main` | 解析输入参数，创建 Agent，启动任务 |
 | `config` | 保存 `max_iterations`、日志路径等配置 |
 | `agent` | 编排 `plan -> act -> observe` 主循环 |
-| `state` | 保存目标、计划、观察结果、工具日志和完成状态 |
+| `state` | 保存目标、计划、观察结果、工具日志、checkpoint 和完成状态 |
 | `planner` | 把研究主题拆成子任务 |
 | `executor` | 根据当前步骤选择并调用工具 |
 | `observer` | 把工具结果写入状态，并判断是否继续 |
@@ -169,24 +169,65 @@ Executor 根据当前步骤选择工具。
 - 资料足够后调用 `summarize`。
 - 所有计划项完成后设置 `finished = true`。
 
-### 第 5 步：实现 Observer 和 Tool Log
+### 第 5 步：实现 Observer、State 和 Tool Log
 
 Observer 做两件事：
 
 1. 把工具返回结果写入 `observations`。
 2. 把工具调用元信息写入 `tool_logs`。
 
+State 建议包含：
+
+- `run_id`
+- `goal`
+- `plan`
+- `current_step`
+- `observations`
+- `tool_logs`
+- `decisions`
+- `retry_count`
+- `finished`
+- `stop_reason`
+- `last_error`
+
+每轮迭代后保存 `runs/<run_id>/state.json`。如果程序重启，优先从 checkpoint 恢复，不要重复执行已经成功且有副作用的动作。
+
 每条工具日志至少包括：
 
 - iteration
+- trace_id
 - tool_name
 - input
 - ok
 - output_preview
 - error
 - duration_ms
+- retry_count
+- next_decision
 
 日志文件建议保存到 `runs/latest.json`。如果担心覆盖，可以用时间戳命名。
+
+### 第 5.5 步：实现失败恢复
+
+为每类失败定义策略：
+
+```text
+if error_type in ["timeout", "rate_limit"] and retry_count < max_retries:
+    retry same action
+elif error_type == "not_found":
+    ask planner to revise query
+elif error_type == "permission_required":
+    pause for human confirmation
+else:
+    stop safely with stop_reason
+```
+
+恢复时要检查 checkpoint：
+
+1. 如果 `finished=true`，只重新生成或展示报告。
+2. 如果上一步工具成功但报告未生成，从 reporter 继续。
+3. 如果上一步失败且可重试，从当前 step 重试。
+4. 如果失败不可重试，输出当前进展和修复建议。
 
 ### 第 6 步：实现 Reporter
 
@@ -241,6 +282,9 @@ node main.js --topic "MCP 和 Agent 的关系" --max-iterations 5
 - [ ] 有 `max_iterations`，且达到上限会停止。
 - [ ] 工具失败时能输出错误信息并继续或安全停止。
 - [ ] 最终报告结构清晰。
+- [ ] 每轮迭代后保存 checkpoint。
+- [ ] 支持从 checkpoint resume。
+- [ ] 日志能按 `run_id` / `trace_id` 串起完整执行链路。
 
 ### 工程验收
 

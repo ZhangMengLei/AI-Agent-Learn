@@ -20,6 +20,9 @@
 - 支持清空历史
 - 支持切换模型
 - 支持记录调用日志
+- 支持 `mock` / `real` provider 安全切换
+- 支持配置超时、重试次数和错误分类
+- 支持在 streaming 中途失败时保存 partial output 并提示用户
 
 ## 推荐目录
 
@@ -52,6 +55,34 @@ cli-chat/
 继续等待用户输入
 ```
 
+## Provider 与配置要求
+
+项目必须保留 mock 路径，真实 API 只能作为可切换 provider 接入。
+
+推荐配置：
+
+```json
+{
+  "provider": "mock",
+  "api_key_env": "ANTHROPIC_API_KEY",
+  "base_url": "",
+  "model": "model-name",
+  "temperature": 0.7,
+  "max_tokens": 1024,
+  "stream": true,
+  "timeout_ms": 30000,
+  "max_retries": 2
+}
+```
+
+要求：
+
+- `provider=mock` 时不读取真实 Key，不访问网络。
+- `provider=real` 时从 `api_key_env` 指向的环境变量读取 Key。
+- 日志只记录 provider、model、latency、usage、success、error_type，不记录 Key。
+- 鉴权错误、参数错误不重试；限流、超时、服务端错误可以有限重试。
+- 所有真实调用前先打印当前 provider 和 model，便于确认没有误用生产配置。
+
 ## 命令设计
 
 ```text
@@ -69,6 +100,9 @@ cli-chat/
 - 可以流式输出。
 - 不把真实 API Key 提交到仓库。
 - 能记录每次调用的耗时和结果。
+- mock provider 与真实 provider 使用同一套业务接口。
+- 缺少 Key、鉴权失败、限流、超时、空输出都有清晰提示。
+- streaming 成功时保存完整回答；中途失败时不把 partial output 当成完整成功。
 
 ## 扩展方向
 

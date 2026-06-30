@@ -56,6 +56,26 @@
 
 ## 配置设计
 
+### Provider 分层
+
+不要让命令行交互、对话历史、日志模块直接依赖某个模型 SDK。建议把模型访问封装为 provider：
+
+```text
+providers/
+  mock_provider.py 或 mock-provider.js
+  real_provider.py 或 real-provider.js
+  factory.py 或 factory.js
+```
+
+统一接口建议包含：
+
+```text
+generate(messages, options)
+stream(messages, options)
+```
+
+业务层只调用统一接口。这样可以先用 mock 跑通流程，再用环境变量切到真实 API。
+
 ### 环境变量
 
 推荐从环境变量读取 API Key：
@@ -70,16 +90,26 @@ export LLM_API_KEY="YOUR_API_KEY"
 
 ```json
 {
+  "env": "dev",
+  "provider": "mock",
   "api_key_env": "LLM_API_KEY",
   "base_url": "https://api.example.com",
   "model": "your-model-name",
   "temperature": 0.7,
   "max_tokens": 1024,
-  "stream": true
+  "stream": true,
+  "timeout_ms": 30000,
+  "max_retries": 2
 }
 ```
 
 不要创建包含真实 Key 的 `config.json` 示例。如果本地需要使用真实配置，请确保它不会被提交。
+
+环境建议：
+
+- `dev`：默认 `provider=mock`，需要显式开启真实 provider。
+- `test`：只允许 mock 或 fixture，避免自动化测试消耗真实额度。
+- `prod`：必须启用真实 provider 前检查 key、预算、限流和脱敏日志。
 
 ## 功能设计
 
@@ -211,13 +241,20 @@ AI> Prompt 是你给模型的任务说明……
 
 ### 第 3 步：完成一次 API 调用
 
-先实现非流式调用：
+先实现 mock provider，再实现非流式真实调用：
 
 ```text
-用户输入 → 构造 messages → 调用 API → 打印完整回答
+用户输入 → 构造 messages → 调用 provider → 打印完整回答
 ```
 
 目标：确保最小闭环可用。
+
+真实 API smoke test 建议只使用一条短输入，并确认：
+
+- provider 和 model 来自配置。
+- API Key 只从环境变量读取。
+- 请求失败时不会打印完整请求头。
+- 调用日志中没有密钥、cookie 或完整隐私输入。
 
 ### 第 4 步：支持多轮对话
 
@@ -243,16 +280,27 @@ AI> Prompt 是你给模型的任务说明……
 
 把完整回答改成边接收边打印。请求结束后，仍然要保存完整文本到对话历史。
 
+实现时要额外处理：
+
+- delta 片段到达后立即输出，但只在结束事件后标记成功。
+- 将 delta 追加到内存 buffer，请求完成后一次性写入 conversation。
+- 中途超时或断开时，记录 `partial_output=true`，提示用户回答不完整。
+- 避免把 partial output 作为下一轮对话的可靠上下文，除非用户确认保留。
+
 ### 第 7 步：增加日志
 
 记录每次调用：
 
 - 开始时间。
 - 结束时间或耗时。
-- 模型名。
+- provider 和模型名。
+- 是否 streaming。
 - 是否成功。
-- 错误信息。
+- 错误类型，例如 `missing_key`、`auth_error`、`rate_limit`、`timeout`、`bad_request`、`server_error`、`empty_output`。
 - token 用量，如果 API 返回。
+- 是否出现 partial output。
+
+鉴权错误和参数错误不要重试；限流、超时和服务端错误可以按 `max_retries` 有限重试。
 
 ### 第 8 步：整理 README
 

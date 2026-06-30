@@ -143,6 +143,30 @@ index/chunks.json
 
 无论哪种方式，都要保证索引可以删除后重新生成。
 
+Index Store 建议至少提供：
+
+```text
+reset()
+upsert_chunks(chunks)
+upsert_vectors(vectors)
+search_by_vector(query_vector, top_k, filters)
+search_by_keyword(query, top_k, filters)
+load_metadata(chunk_id)
+```
+
+不要只保存文本内容。必须保存 `source`、`section`、`start_line`、`end_line`、`content_hash` 和 `embedding_model`，否则无法做引用、增量更新和排障。
+
+### 第 3.5 步：Embedder
+
+将 embedding 封装成独立模块，避免检索器直接依赖某个 API：
+
+```text
+embed_documents(chunks) -> [{chunk_id, vector}]
+embed_query(question) -> vector
+```
+
+教学阶段可用 mock embedding 或简单 hash 向量，真实替换时再接入 embedding API。真实调用必须使用环境变量读取 Key，并在日志中只记录模型名、维度、耗时和错误类型。
+
 ### 第 4 步：Retriever
 
 最小版本：关键词重叠、BM25 或简单打分。
@@ -158,6 +182,31 @@ index/chunks.json
 - `section`
 
 建议在 `inspect` 命令中打印这些字段，便于判断检索是否正确。
+
+推荐进阶检索顺序：
+
+```text
+query rewrite（可选）
+  ↓
+关键词召回 Top K
+  ↓
+向量召回 Top K
+  ↓
+metadata filter（可选）
+  ↓
+合并去重
+```
+
+### 第 4.5 步：Reranker
+
+Reranker 负责把候选 chunk 重新排序。可以先用规则实现：
+
+- 标题或章节命中加分。
+- query 关键词命中密度高加分。
+- chunk 太短或太长适当降权。
+- 来源可信或最近更新可加分。
+
+进阶时可替换为专用 rerank 模型或 LLM-as-reranker。`inspect` 输出中应展示 rerank 前后排名，便于定位“召回不到”还是“排序错误”。
 
 ### 第 5 步：Prompt Builder
 
@@ -218,6 +267,31 @@ Prompt 中应明确：
 - 每个答案都有引用。
 - 知识库外问题不会被编造回答。
 - 修改文档后重新 ingest，答案能反映最新内容。
+- 删除 `index/` 后重建，chunk 数量和来源仍可解释。
+- 如果启用 embedding，query embedding 和 document embedding 使用同一兼容模型。
+- 如果启用 rerank，能看到 rerank 前后 Top K 的变化。
+
+### Retrieval Eval 建议
+
+在 `evaluation/eval_cases.json` 中记录：
+
+```json
+{
+  "id": "rag-001",
+  "question": "RAG 为什么需要引用？",
+  "expected_sources": ["knowledge_base/rag.md"],
+  "expected_sections": ["Citation"],
+  "should_answer": true
+}
+```
+
+至少统计：
+
+- Top 1 / Top 3 命中率。
+- 知识库外问题拒答率。
+- 引用是否支持答案。
+- 平均检索耗时。
+- rerank 后排名是否改善。
 
 ## 常见扩展
 
