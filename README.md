@@ -122,9 +122,13 @@ make check
 
 | 阶段 | 实现目录 | 运行命令 | 学习重点 |
 | --- | --- | --- | --- |
+| 01 Prompt | [implementations/01-prompt-lab](implementations/01-prompt-lab/) | `make demo-prompt` | Prompt 模板、结构化质量检查、mock 输出 |
+| 02 LLM API | [implementations/02-llm-chat](implementations/02-llm-chat/) | `make demo-llm` | messages、streaming、多轮上下文、调用日志 |
 | 03 Tool Use | [implementations/03-tool-assistant](implementations/03-tool-assistant/) | `make demo-tool` | 工具注册、参数校验、权限确认、tool log |
 | 04 RAG | [implementations/04-rag-assistant](implementations/04-rag-assistant/) | `make demo-rag QUERY="Agent 和 Chatbot 区别是什么"` | Markdown 加载、chunk、检索、引用 |
 | 05 Agent | [implementations/05-research-agent](implementations/05-research-agent/) | `make demo-agent` | 计划、工具调用、观察、报告生成 |
+| 06 MCP | [implementations/06-mcp-server](implementations/06-mcp-server/) | `make demo-mcp` | JSON-RPC、tools、resources、prompts |
+| 07 Claude Code | [implementations/07-claude-code-workflow](implementations/07-claude-code-workflow/) | `make demo-claude-code` | CLI Agent 工作流、权限策略、hook 示例 |
 | 08 Eval / Security | [implementations/08-eval-lab](implementations/08-eval-lab/) | `make demo-eval` | golden dataset、规则评分、安全样例、报告 |
 
 说明：
@@ -133,6 +137,7 @@ make check
 - `implementations/` 是可运行参考工程，帮助你把概念跑起来。
 - `solutions/` 是做完练习后的答案讲解，不建议一开始就看。
 - `make demo-agent` 和 `make demo-eval` 会生成或覆盖本地报告文件。
+- 新增 01/02/06/07 demo 默认只打印输出，不写入文件。
 - 使用真实模型服务前，请先配置 `.env`，并确认 `.gitignore` 已忽略 `.env`。
 
 也可以使用 Makefile 中的通用 lesson 入口：
@@ -175,7 +180,7 @@ data/
   docs/                      RAG 与知识库样例文档
   notes/                     结构化学习笔记样例
   eval/                      评测黄金集样例
-implementations/             Tool Use、RAG、Agent、Eval 可运行参考实现
+implementations/             01-08 全阶段可运行参考实现
 tests/                       unittest 自动化测试
 checkpoints/                 每阶段自查问题
 solutions/                   参考答案、讲解和项目复盘

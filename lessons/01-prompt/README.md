@@ -14,6 +14,11 @@
 - [Prompt 项目工程](06-project-lab/README.md)
 - [Prompt 阶段复盘](07-review.md)
 
+## 可运行参考实现
+
+- [Prompt Lab Demo](../../implementations/01-prompt-lab/)：演示 Prompt 模板库、结构化质量评分和 mock 输出。
+- 运行命令：`make demo-prompt`
+
 ## 核心概念
 
 - System Prompt / Developer Prompt / User Prompt

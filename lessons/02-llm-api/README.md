@@ -14,6 +14,11 @@
 - [项目工程](06-project-lab/README.md)
 - [阶段复盘](07-review.md)
 
+## 可运行参考实现
+
+- [LLM Chat Demo](../../implementations/02-llm-chat/)：演示 messages、streaming、多轮上下文、token 估算和调用日志。
+- 运行命令：`make demo-llm`
+
 ## 核心概念
 
 - API Key

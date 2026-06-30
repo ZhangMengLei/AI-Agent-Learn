@@ -14,6 +14,11 @@
 - [项目工程](06-project-lab/README.md)
 - [阶段复盘](07-review.md)
 
+## 可运行参考实现
+
+- [Mini MCP Server Demo](../../implementations/06-mcp-server/)：用标准库模拟 MCP / JSON-RPC server、tools、resources 和 prompts。
+- 运行命令：`make demo-mcp`
+
 ## 核心概念
 
 - MCP Client

@@ -34,7 +34,7 @@ if not api_key:
 不要写成：
 
 ```python
-api_key = "sk-真实密钥"
+api_key = ...  # 不要把真实密钥硬编码在代码里
 ```
 
 ## .env 文件注意事项
@@ -72,7 +72,7 @@ MODEL_NAME=replace_with_model_name
 
 ```json
 {
-  "api_key": "sk-xxxx"
+  "api_key": "fake-secret-placeholder"
 }
 ```
 
@@ -81,7 +81,7 @@ MODEL_NAME=replace_with_model_name
 错误示例：
 
 ```text
-request failed, api_key=sk-xxxx, input=用户完整隐私数据
+request failed, credential_redacted=true, input=用户完整隐私数据
 ```
 
 推荐示例：

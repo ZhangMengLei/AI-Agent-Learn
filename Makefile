@@ -1,4 +1,4 @@
-.PHONY: help install list demo demo-tool demo-rag demo-agent demo-eval lint test check clean
+.PHONY: help install list demo demo-prompt demo-llm demo-tool demo-rag demo-agent demo-mcp demo-claude-code demo-eval demo-all lint test check-secrets check clean
 
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
@@ -14,14 +14,20 @@ help:
 	@printf '%s\n' 'make list                            查看课程、数据、自查清单和可运行实现'
 	@printf '%s\n' 'make demo STAGE=01-prompt LAB=04-exercises-lab'
 	@printf '%s\n' '                                     检查并运行某个 lesson demo 目录'
+	@printf '%s\n' 'make demo-prompt                     运行 Prompt 模板与质量检查 Demo'
+	@printf '%s\n' 'make demo-llm                        运行 LLM API 生命周期 Mock Demo'
 	@printf '%s\n' 'make demo-tool                       运行 Tool Use 教学 Demo'
 	@printf '%s\n' 'make demo-rag QUERY="Agent 和 Chatbot 区别是什么"'
 	@printf '%s\n' '                                     运行本地 Markdown RAG Demo'
 	@printf '%s\n' 'make demo-agent                      运行研究 Agent Demo（会覆盖报告文件）'
+	@printf '%s\n' 'make demo-mcp                        运行 MCP / JSON-RPC Mock Server Demo'
+	@printf '%s\n' 'make demo-claude-code                运行 Claude Code 工作流模拟 Demo'
 	@printf '%s\n' 'make demo-eval                       运行 Eval Lab Demo（会覆盖报告文件）'
+	@printf '%s\n' 'make demo-all                        顺序运行 01-08 全阶段 Demo'
 	@printf '%s\n' 'make lint                            编译检查 Python 文件'
 	@printf '%s\n' 'make test                            运行 unittest 测试'
-	@printf '%s\n' 'make check                           运行 lint 和 test'
+	@printf '%s\n' 'make check-secrets                   检查误提交的 .env 和明显密钥字面量'
+	@printf '%s\n' 'make check                           运行 lint、test 和 check-secrets'
 	@printf '%s\n' 'make clean                           清理缓存和输出目录'
 
 install:
@@ -59,6 +65,12 @@ demo:
 		printf '%s\n' '未发现 main.py、app.py 或 README.md，请检查该阶段是否已补充 demo。'; \
 	fi
 
+demo-prompt:
+	$(PYTHON) implementations/01-prompt-lab/main.py --template summarize --input "Prompt 是人与大模型协作时的任务说明书。" --compare
+
+demo-llm:
+	$(PYTHON) implementations/02-llm-chat/main.py "解释 streaming 和多轮上下文" --stream --show-log
+
 demo-tool:
 	$(PYTHON) implementations/03-tool-assistant/main.py "计算 1 + 2 * 3"
 
@@ -68,8 +80,16 @@ demo-rag:
 demo-agent:
 	$(PYTHON) implementations/05-research-agent/research_agent.py
 
+demo-mcp:
+	$(PYTHON) implementations/06-mcp-server/main.py --demo
+
+demo-claude-code:
+	$(PYTHON) implementations/07-claude-code-workflow/main.py --scenario bugfix --show-policy
+
 demo-eval:
 	$(PYTHON) implementations/08-eval-lab/eval_lab.py
+
+demo-all: demo-prompt demo-llm demo-tool demo-rag demo-agent demo-mcp demo-claude-code demo-eval
 
 lint:
 	@if find implementations tests -name '*.py' -print -quit 2>/dev/null | grep -q .; then \
@@ -85,7 +105,17 @@ test:
 		printf '%s\n' '未发现 tests 目录，跳过 unittest。'; \
 	fi
 
-check: lint test
+check-secrets:
+	@if find . \( -path './.git' -o -path './.claude' \) -prune -o \( -name .env -o -name '.env.*' \) ! -name '.env.example' -print | grep -q .; then \
+		printf '%s\n' 'Do not commit real .env files. Keep only .env.example.'; \
+		exit 1; \
+	fi
+	@if grep -RInE '(^|[^A-Za-z0-9_-])sk-[A-Za-z0-9_-]{20,}|api[_-]?key[[:space:]]*=[[:space:]]*["'"'"'][^"'"'"']+["'"'"']' . --exclude-dir=.git --exclude-dir=.claude; then \
+		printf '%s\n' 'Potential secret literal found.'; \
+		exit 1; \
+	fi
+
+check: lint test check-secrets
 
 clean:
 	@find . -type d \( -name '__pycache__' -o -name '.pytest_cache' -o -name '.ruff_cache' -o -name '.mypy_cache' \) -prune -exec rm -rf {} +

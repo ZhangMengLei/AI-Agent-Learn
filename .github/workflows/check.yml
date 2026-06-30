@@ -16,22 +16,14 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Compile Python files
-        run: python -m compileall -q implementations tests
+      - name: Run quality checks
+        run: make check
 
-      - name: Run unit tests
-        run: python -m unittest discover -s tests
-
-      - name: Check accidental secret files
+      - name: Run demo smoke tests
         run: |
-          if find . \( -path './.git' -o -path './.claude' \) -prune -o \( -name .env -o -name '.env.*' \) ! -name '.env.example' -print | grep -q .; then
-            echo "Do not commit real .env files. Keep only .env.example."
-            exit 1
-          fi
-
-      - name: Check obvious secret literals
-        run: |
-          if grep -RInE '(sk-[A-Za-z0-9_-]{16,}|api[_-]?key[[:space:]]*=[[:space:]]*["'"''][^"'"'']+["'"''])' . --exclude-dir=.git --exclude-dir=.claude; then
-            echo "Potential secret literal found."
-            exit 1
-          fi
+          make demo-prompt
+          make demo-llm
+          make demo-tool
+          make demo-rag QUERY="Agent 和 Chatbot 区别是什么"
+          make demo-mcp
+          make demo-claude-code

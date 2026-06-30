@@ -14,6 +14,11 @@
 - [项目实验工程](06-project-lab/README.md)
 - [阶段复盘](07-review.md)
 
+## 可运行参考实现
+
+- [Claude Code Workflow Demo](../../implementations/07-claude-code-workflow/)：离线模拟 CLI Agent 工作流、命令权限分类、hook 和 skill 提示。
+- 运行命令：`make demo-claude-code`
+
 ## 核心概念
 
 - Claude Code CLI
