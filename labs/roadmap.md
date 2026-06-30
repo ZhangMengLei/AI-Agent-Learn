@@ -23,10 +23,10 @@
 - [ ] 阅读 `01-basic.md`。
 - [ ] 阅读 `02-templates.md`。
 - [ ] 完成 `03-exercises.md`。
-- [ ] 完成 `03-exercises-lab/README.md` 中的核心练习。
-- [ ] 完成 `04-project.md`。
-- [ ] 完成 `04-project-lab/README.md` 中的项目方案或最小实现。
-- [ ] 阅读 `05-review.md` 并自评。
+- [ ] 完成 `04-exercises-lab/README.md` 中的核心练习。
+- [ ] 完成 `05-project.md`。
+- [ ] 完成 `06-project-lab/README.md` 中的项目方案或最小实现。
+- [ ] 阅读 `07-review.md` 并自评。
 
 ## 07 Claude Code 进度
 

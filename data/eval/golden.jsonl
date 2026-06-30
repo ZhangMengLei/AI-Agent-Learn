@@ -1,0 +1,4 @@
+{"id":"golden-001","question":"结构化 Prompt 通常包含哪些要素？","answer":"通常包含角色、任务、上下文、约束、输出格式和验收标准。","source":"data/docs/prompt-basic.md","tags":["prompt","基础"]}
+{"id":"golden-002","question":"一个最小 Agent 循环包括哪些步骤？","answer":"包括接收目标、制定计划、选择工具、执行动作、观察结果和调整策略。","source":"data/docs/agent-basic.md","tags":["agent","基础"]}
+{"id":"golden-003","question":"MCP 的核心价值是什么？","answer":"MCP 的核心价值是用标准化方式连接模型应用与外部工具、数据源和上下文能力，减少重复适配。","source":"data/docs/mcp-basic.md","tags":["mcp","基础"]}
+{"id":"golden-004","question":"RAG 评测为什么需要黄金集？","answer":"黄金集提供固定问题、参考答案和来源，可用于比较不同检索、提示词或模型配置下的回答质量。","source":"data/eval/golden.jsonl","tags":["rag","eval"]}

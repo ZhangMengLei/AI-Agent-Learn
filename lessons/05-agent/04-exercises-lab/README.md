@@ -17,7 +17,7 @@
 建议在本目录下按下面结构创建自己的练习代码：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   starter/
     main.py                 # 练习入口，也可以换成 main.js
@@ -152,14 +152,14 @@ for i in range(max_iterations):
 Python 示例：
 
 ```bash
-cd lessons/05-agent/03-exercises-lab/starter
+cd lessons/05-agent/04-exercises-lab/starter
 python main.py --topic "什么是 MCP" --max-iterations 5
 ```
 
 JavaScript 示例：
 
 ```bash
-cd lessons/05-agent/03-exercises-lab/starter
+cd lessons/05-agent/04-exercises-lab/starter
 node main.js --topic "什么是 MCP" --max-iterations 5
 ```
 

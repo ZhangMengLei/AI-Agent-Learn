@@ -21,7 +21,7 @@
 TypeScript 版本：
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   learning-notes-mcp/
     package.json
@@ -51,7 +51,7 @@ TypeScript 版本：
 Python 版本：
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   learning_notes_mcp/
     pyproject.toml
@@ -308,7 +308,7 @@ notes://mcp/basic
 TypeScript 示例：
 
 ```bash
-cd lessons/06-mcp/04-project-lab/learning-notes-mcp
+cd lessons/06-mcp/06-project-lab/learning-notes-mcp
 npm install
 npm run dev -- --config config.example.json
 ```
@@ -316,7 +316,7 @@ npm run dev -- --config config.example.json
 Python 示例：
 
 ```bash
-cd lessons/06-mcp/04-project-lab/learning_notes_mcp
+cd lessons/06-mcp/06-project-lab/learning_notes_mcp
 python -m src.server --config config.example.json
 ```
 

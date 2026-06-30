@@ -17,7 +17,7 @@
 建议在本目录下按下面结构整理你的练习成果：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   exercise-01-summary.md
   exercise-02-code-explain.md

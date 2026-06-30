@@ -19,7 +19,7 @@
 可以在本目录下按下面结构实现：
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   pyproject.toml 或 package.json
   src/

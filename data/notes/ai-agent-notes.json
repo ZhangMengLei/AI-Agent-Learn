@@ -1,0 +1,26 @@
+[
+  {
+    "id": "note-001",
+    "topic": "prompt",
+    "title": "结构化 Prompt 六要素",
+    "summary": "角色、任务、上下文、约束、输出格式和验收标准可以显著提升模型回答的稳定性。",
+    "tags": ["prompt", "入门", "模板"],
+    "source": "data/docs/prompt-basic.md"
+  },
+  {
+    "id": "note-002",
+    "topic": "agent",
+    "title": "Agent 的目标-行动-观察循环",
+    "summary": "Agent 围绕目标持续制定计划、选择工具、执行动作、观察结果并调整策略。",
+    "tags": ["agent", "工具调用", "工程化"],
+    "source": "data/docs/agent-basic.md"
+  },
+  {
+    "id": "note-003",
+    "topic": "mcp",
+    "title": "MCP 的标准化接入价值",
+    "summary": "MCP 通过 Client、Server、Tools、Resources、Prompts 等概念，把外部能力以统一方式提供给模型应用。",
+    "tags": ["mcp", "协议", "工具"],
+    "source": "data/docs/mcp-basic.md"
+  }
+]

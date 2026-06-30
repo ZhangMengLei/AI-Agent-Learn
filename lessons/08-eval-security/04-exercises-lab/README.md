@@ -17,7 +17,7 @@
 请在本目录下按下面结构完成练习：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   datasets/
     golden.sample.jsonl

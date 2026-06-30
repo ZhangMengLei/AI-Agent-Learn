@@ -1,6 +1,6 @@
 # Labs 学习支持文档
 
-`labs/` 用来承载本课程所有教学实验的通用说明。每个阶段的 `03-exercises-lab` 和 `04-project-lab` 会给出具体任务，本目录提供跨阶段都适用的环境、安全和排障指南。
+`labs/` 用来承载本课程所有教学实验的通用说明。每个阶段的 `04-exercises-lab` 和 `06-project-lab` 会给出具体任务，本目录提供跨阶段都适用的环境、安全和排障指南。
 
 ## 推荐阅读顺序
 
@@ -14,9 +14,9 @@
 建议每个阶段都按下面节奏完成：
 
 1. **先读理论**：阅读阶段 `01-basic.md` 和 `02-templates.md`。
-2. **完成练习**：阅读 `03-exercises.md`，再到 `03-exercises-lab/` 完成工程化练习。
-3. **完成项目**：阅读 `04-project.md`，再到 `04-project-lab/` 设计或实现小项目。
-4. **阶段复盘**：阅读 `05-review.md`，用检查清单自评。
+2. **完成练习**：阅读 `03-exercises.md`，再到 `04-exercises-lab/` 完成工程化练习。
+3. **完成项目**：阅读 `05-project.md`，再到 `06-project-lab/` 设计或实现小项目。
+4. **阶段复盘**：阅读 `07-review.md`，用检查清单自评。
 5. **记录问题**：把卡住的问题写在自己的学习笔记里，下一次优先解决。
 
 ## 通用目录约定
@@ -29,19 +29,19 @@ lessons/<stage>/
   01-basic.md
   02-templates.md
   03-exercises.md
-  03-exercises-lab/
+  04-exercises-lab/
     README.md
-  04-project.md
-  04-project-lab/
+  05-project.md
+  06-project-lab/
     README.md
-  05-review.md
+  07-review.md
 ```
 
 说明：
 
-- `03-exercises-lab/`：偏小练习，目标是理解一个技能点。
-- `04-project-lab/`：偏综合项目，目标是把多个技能组合起来。
-- `05-review.md`：阶段复盘、常见错误和检查清单。
+- `04-exercises-lab/`：偏小练习，目标是理解一个技能点。
+- `06-project-lab/`：偏综合项目，目标是把多个技能组合起来。
+- `07-review.md`：阶段复盘、常见错误和检查清单。
 
 ## 学习原则
 

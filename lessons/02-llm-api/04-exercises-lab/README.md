@@ -20,7 +20,7 @@
 建议在本目录下按下面结构组织练习：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   exercise-01-request-structure.md
   exercise-02-messages.md
@@ -37,7 +37,7 @@
 如果你选择写代码练习，也可以使用下面结构：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   python/
     request_demo.py

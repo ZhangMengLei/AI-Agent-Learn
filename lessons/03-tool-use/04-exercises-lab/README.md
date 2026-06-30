@@ -19,7 +19,7 @@
 建议在本目录下创建自己的实验代码，例如：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   src/
     main.py              # 命令行入口：接收用户输入并驱动一次对话
@@ -117,7 +117,7 @@ delete_note(title)
 以下命令是推荐形式，可按你的语言和包管理工具调整：
 
 ```bash
-cd lessons/03-tool-use/03-exercises-lab
+cd lessons/03-tool-use/04-exercises-lab
 python -m venv .venv
 source .venv/bin/activate
 python src/main.py

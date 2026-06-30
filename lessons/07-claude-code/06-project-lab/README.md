@@ -18,10 +18,10 @@
 
 ## 推荐文件结构
 
-请在 `04-project-lab/` 下实现以下结构：
+请在 `06-project-lab/` 下实现以下结构：
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   claude-workflow/
     CLAUDE.md

@@ -20,7 +20,7 @@
 建议在本目录下创建自己的实验代码，例如：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   src/
     ingest.py              # 读取 Markdown 并生成 chunk
@@ -167,7 +167,7 @@ retrieve(query, top_k=3) -> list[chunk]
 推荐命令如下，可按你的实现调整：
 
 ```bash
-cd lessons/04-rag/03-exercises-lab
+cd lessons/04-rag/04-exercises-lab
 python src/ingest.py --input knowledge_base --output index/chunks.json
 python src/ask.py "RAG 为什么要切分 chunk？"
 ```

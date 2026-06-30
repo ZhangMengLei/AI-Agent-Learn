@@ -23,7 +23,7 @@
 可以选择 Python 或 Node.js。下面以通用结构表示：
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   cli-chatbot/
     README.md

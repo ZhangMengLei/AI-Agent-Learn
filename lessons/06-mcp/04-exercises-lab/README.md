@@ -17,7 +17,7 @@
 建议在本目录下按下面结构组织练习代码：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   starter/
     server.py 或 server.ts       # MCP Server 入口
@@ -168,14 +168,14 @@ Prompts 是给客户端复用的提示词模板。先设计一个学习复盘模
 Python 示例：
 
 ```bash
-cd lessons/06-mcp/03-exercises-lab/starter
+cd lessons/06-mcp/04-exercises-lab/starter
 python server.py --config config.example.json
 ```
 
 TypeScript 示例：
 
 ```bash
-cd lessons/06-mcp/03-exercises-lab/starter
+cd lessons/06-mcp/04-exercises-lab/starter
 npm install
 npm run dev -- --config config.example.json
 ```

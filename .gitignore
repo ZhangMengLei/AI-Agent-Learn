@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+secrets/
+
+# Local data and generated artifacts
+outputs/
+artifacts/
+tmp/
+.cache/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE and OS
+.DS_Store
+.idea/
+.vscode/
+
+# Claude local workspace
+.claude/settings.local.json
+.claude/worktrees/

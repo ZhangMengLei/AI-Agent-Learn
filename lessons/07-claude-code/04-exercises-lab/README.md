@@ -17,7 +17,7 @@
 请在本目录下按下面结构完成练习文件：
 
 ```text
-03-exercises-lab/
+04-exercises-lab/
   README.md
   starter/
     sample-project/
@@ -141,7 +141,7 @@
 
 ```bash
 # 进入你创建的 sample project
-cd lessons/07-claude-code/03-exercises-lab/starter/sample-project
+cd lessons/07-claude-code/04-exercises-lab/starter/sample-project
 
 # 如果你选择 JavaScript 示例，可安装依赖并运行测试
 npm install

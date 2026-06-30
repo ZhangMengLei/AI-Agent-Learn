@@ -18,7 +18,7 @@
 ## 推荐文件结构
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   research_agent/
     main.py
@@ -44,7 +44,7 @@
 JavaScript 版本可以参考：
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   research-agent/
     main.js
@@ -219,14 +219,14 @@ Observer 做两件事：
 Python 示例：
 
 ```bash
-cd lessons/05-agent/04-project-lab/research_agent
+cd lessons/05-agent/06-project-lab/research_agent
 python main.py --topic "MCP 和 Agent 的关系" --max-iterations 5
 ```
 
 JavaScript 示例：
 
 ```bash
-cd lessons/05-agent/04-project-lab/research-agent
+cd lessons/05-agent/06-project-lab/research-agent
 node main.js --topic "MCP 和 Agent 的关系" --max-iterations 5
 ```
 

@@ -19,11 +19,11 @@
 
 ```text
 08-eval-security/
-  03-exercises-lab/
+  04-exercises-lab/
     README.md
-  04-project-lab/
+  06-project-lab/
     README.md
-  05-review.md
+  07-review.md
 ```
 
 如果你完成了项目实验，还应该有一套最小评测工程：

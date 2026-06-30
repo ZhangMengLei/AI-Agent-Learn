@@ -14,7 +14,7 @@
 ## 推荐文件结构
 
 ```text
-04-project-lab/
+06-project-lab/
   README.md
   prompt-library/
     summary.md
