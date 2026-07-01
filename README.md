@@ -150,6 +150,7 @@ make help
 make install
 make list
 make learn-status
+make ui
 make check
 ```
 
@@ -179,6 +180,13 @@ make check
 make learn-status PROGRESS=data/notes/learning-progress.example.json
 ```
 
+- `make ui` 会生成本地教学 GUI，可直接在浏览器中阅读完整学习资料、点击内部学习链接、通过章节入口打开对应答案、标记已读、写学习笔记，并查看 Prompt / RAG / Agent / Eval 可视化实验：
+
+```bash
+make ui
+```
+
+生成后打开 [ui/dist/teaching-console.html](ui/dist/teaching-console.html)。详细说明见 [ui/README.md](ui/README.md)。
 - 使用真实模型服务前，请先配置 `.env`，并确认 `.gitignore` 已忽略 `.env`。
 
 也可以使用 Makefile 中的通用 lesson 入口：

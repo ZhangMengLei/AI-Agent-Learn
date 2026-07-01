@@ -1,4 +1,4 @@
-.PHONY: help install list learn-status demo demo-prompt demo-llm demo-tool demo-rag demo-agent demo-mcp demo-claude-code demo-eval demo-all lint test check-secrets check clean
+.PHONY: help install list learn-status ui demo demo-prompt demo-llm demo-tool demo-rag demo-agent demo-mcp demo-claude-code demo-eval demo-all lint test check-secrets check clean
 
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
@@ -16,6 +16,7 @@ help:
 	@printf '%s\n' 'make learn-status                    查看学习状态和推荐下一步'
 	@printf '%s\n' 'make learn-status PROGRESS=data/notes/learning-progress.example.json'
 	@printf '%s\n' '                                     使用进度文件生成学习建议'
+	@printf '%s\n' 'make ui                              生成本地教学 GUI（静态 HTML）'
 	@printf '%s\n' 'make demo STAGE=01-prompt LAB=04-exercises-lab'
 	@printf '%s\n' '                                     检查并运行某个 lesson demo 目录'
 	@printf '%s\n' 'make demo-prompt                     运行 Prompt 模板与质量检查 Demo'
@@ -58,6 +59,13 @@ learn-status:
 		$(PYTHON) labs/learning_status.py --progress "$(PROGRESS)"; \
 	else \
 		$(PYTHON) labs/learning_status.py; \
+	fi
+
+ui:
+	@if [ -n "$(PROGRESS)" ]; then \
+		$(PYTHON) ui/teaching_console.py --progress "$(PROGRESS)"; \
+	else \
+		$(PYTHON) ui/teaching_console.py; \
 	fi
 
 demo:
