@@ -1,10 +1,11 @@
-.PHONY: help install list demo demo-prompt demo-llm demo-tool demo-rag demo-agent demo-mcp demo-claude-code demo-eval demo-all lint test check-secrets check clean
+.PHONY: help install list learn-status demo demo-prompt demo-llm demo-tool demo-rag demo-agent demo-mcp demo-claude-code demo-eval demo-all lint test check-secrets check clean
 
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 STAGE ?= 01-prompt
 LAB ?= 04-exercises-lab
 QUERY ?= Agent 和 Chatbot 区别是什么
+PROGRESS ?=
 LESSON_DIR := lessons/$(STAGE)/$(LAB)
 
 help:
@@ -12,6 +13,9 @@ help:
 	@printf '%s\n' ''
 	@printf '%s\n' 'make install                         安装 Python 依赖'
 	@printf '%s\n' 'make list                            查看课程、数据、自查清单和可运行实现'
+	@printf '%s\n' 'make learn-status                    查看学习状态和推荐下一步'
+	@printf '%s\n' 'make learn-status PROGRESS=data/notes/learning-progress.example.json'
+	@printf '%s\n' '                                     使用进度文件生成学习建议'
 	@printf '%s\n' 'make demo STAGE=01-prompt LAB=04-exercises-lab'
 	@printf '%s\n' '                                     检查并运行某个 lesson demo 目录'
 	@printf '%s\n' 'make demo-prompt                     运行 Prompt 模板与质量检查 Demo'
@@ -48,6 +52,13 @@ list:
 	@printf '%s\n' ''
 	@printf '%s\n' '自查清单：'
 	@find checkpoints -type f -name '*.md' | sort 2>/dev/null || true
+
+learn-status:
+	@if [ -n "$(PROGRESS)" ]; then \
+		$(PYTHON) labs/learning_status.py --progress "$(PROGRESS)"; \
+	else \
+		$(PYTHON) labs/learning_status.py; \
+	fi
 
 demo:
 	@if [ ! -d "$(LESSON_DIR)" ]; then \
@@ -92,8 +103,8 @@ demo-eval:
 demo-all: demo-prompt demo-llm demo-tool demo-rag demo-agent demo-mcp demo-claude-code demo-eval
 
 lint:
-	@if find implementations tests -name '*.py' -print -quit 2>/dev/null | grep -q .; then \
-		$(PYTHON) -m compileall -q implementations tests; \
+	@if find implementations labs tests -name '*.py' -print -quit 2>/dev/null | grep -q .; then \
+		$(PYTHON) -m compileall -q implementations labs tests; \
 	else \
 		printf '%s\n' '未发现 Python 文件，跳过编译检查。'; \
 	fi

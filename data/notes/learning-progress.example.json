@@ -1,0 +1,17 @@
+{
+  "stages": {
+    "00-ai-foundation": {
+      "completed": [
+        "README.md",
+        "01-basic.md"
+      ],
+      "note": "已经理解 AI、LLM、RAG、Agent、MCP 的大致关系。"
+    },
+    "01-prompt": {
+      "completed": [
+        "README.md"
+      ],
+      "note": "下一步练习结构化 Prompt。"
+    }
+  }
+}

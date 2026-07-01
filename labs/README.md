@@ -33,6 +33,20 @@
 4. **阶段复盘**：阅读 `07-review.md`，用检查清单自评。
 5. **记录问题**：把卡住的问题写在自己的学习笔记里，下一次优先解决。
 
+## 学习状态工具
+
+如果你想快速知道“现在该学哪一项”，可以运行：
+
+```bash
+make learn-status
+```
+
+如果已经有自己的学习记录，可以复制 [../data/notes/learning-progress.example.json](../data/notes/learning-progress.example.json) 为个人文件，按完成情况更新 `completed` 列表，再运行：
+
+```bash
+make learn-status PROGRESS=data/notes/learning-progress.example.json
+```
+
 ## 通用目录约定
 
 每个阶段推荐包含：

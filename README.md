@@ -149,6 +149,7 @@ cp .env.example .env
 make help
 make install
 make list
+make learn-status
 make check
 ```
 
@@ -172,6 +173,12 @@ make check
 - `solutions/` 是做完练习后的答案讲解，不建议一开始就看。
 - `make demo-agent` 和 `make demo-eval` 会生成或覆盖本地报告文件。
 - 新增 01/02/06/07 demo 默认只打印输出，不写入文件。
+- `make learn-status` 会扫描课程阶段并推荐下一步；也可以传入自己的进度文件：
+
+```bash
+make learn-status PROGRESS=data/notes/learning-progress.example.json
+```
+
 - 使用真实模型服务前，请先配置 `.env`，并确认 `.gitignore` 已忽略 `.env`。
 
 也可以使用 Makefile 中的通用 lesson 入口：
